@@ -1,0 +1,4 @@
+scripts/controllers_builds/
+node_modules/
+.idea/
+scripts/libs/
