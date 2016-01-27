@@ -1,0 +1,64 @@
+<header>
+    <div class="logo-container">
+        <img src="img/logo.png" alt="logo">
+    </div>
+    <div class="header-buttons">
+        <button id="btn-search" class="btn-search"></button>
+        <button id="btn-filter" class="btn-filter"></button>
+    </div>
+
+</header>
+<style>
+    .active{
+        background-color: #00A9DB;
+    }
+
+</style>
+<article>
+    <section class="dashboard">
+        <div class="container-total">
+            <h1 id="articles-total">{{total}} Articles</h1>
+        </div>
+        <div class="container-details">
+            <h2 id="articles-in-stock">{{stock}} in stock</h2>
+            <h2 id="articles-missing">{{missing}} missing</h2>
+        </div>
+    </section>
+    <section class="device-list">
+        <ul id="articles-list">
+            <li ng-repeat="item in items" ng-show="filtro == item.active || filtro == null">
+                <div class="icon-section">
+                    <span class="icon-instock" ng-class="{'icon-missing' : item.active != true }"></span>
+                </div>
+                <div class="content-section">
+                    <div class="content-header">
+                        <h4>ID: {{item.id}}</h4>
+                        <h4>{{item.date}}</h4>
+                    </div>
+                    <h3>KEY: {{item.key}}</h3>
+                    <h3>{{item.description}}</h3>
+                </div>
+            </li>
+        </ul>
+    </section>
+</article>
+<div id="filter-container" class="filter-container">
+    <ul>
+        <li ng-class="{'active':filtro == null}" ng-click="setFilter(null)">All</li>
+        <li ng-class="{'active':filtro}" ng-click="setFilter(true)">In stock</li>
+        <li ng-class="{'active':filtro == false}" ng-click="setFilter(false)">Missing</li>
+    </ul>
+</div>
+
+<div id="search-container" class="search-container">
+    <span class="icon-search"></span>
+    <div angucomplete-alt id="search-input" placeholder="Search"
+         pause="300" selected-object="selected" local-data="items"
+         search-fields="key,id" title-field="key, description" description-field="description"
+         minlength="1" input-class="form-control form-control-small" match-class="highlight">
+    </div>
+    <!-- input id="search-input" type="text" placeholder="Search" -->
+    <button id="btn-delete" class="icon-delete" ng-click="searchErase()"></button>
+</div>
+<div id="transparent-container"></div>
+<button class="btn-floating" ng-click="update()"></button>
